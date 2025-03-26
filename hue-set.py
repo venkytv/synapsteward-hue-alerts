@@ -92,12 +92,12 @@ class Client:
     def set_colour(self, hex_colour, brightness_percentage):
         # If colour is black, turn off the light
         if hex_colour.lstrip('#') == "000000":
-            logging.debug("Turning off light")
+            logging.info("Turning off light")
             return self._call("PUT", f"/{self.light_id}/state", data=dict(on=False))
 
         hue, saturation = self.hex_to_hue_sat(hex_colour)
         brightness = 254 * brightness_percentage // 100
-        logging.debug(f"Setting colour: hue={hue} saturation={saturation} brightness={brightness}")
+        logging.info(f"Setting colour: hue={hue} saturation={saturation} brightness={brightness}")
         return self._call("PUT", f"/{self.light_id}/state",
                 data=dict(on=True, hue=hue, sat=saturation, bri=brightness))
 
